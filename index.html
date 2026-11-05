@@ -1,6 +1,1806 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Skimming to Seeing</title>
-    </head>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#111312">
+    <meta name="description" content="Read at your own pace. See the story come alive.">
+    <title>Skimming to Seeing</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        color-scheme: dark;
+        --page: #111312;
+        --surface: #191c1a;
+        --surface-raised: #202421;
+        --surface-soft: #252a26;
+        --text: #f4f4ef;
+        --muted: #9da49e;
+        --faint: #737b75;
+        --line: rgba(233, 239, 230, .11);
+        --accent: #c6f36b;
+        --accent-ink: #17200c;
+        --accent-soft: rgba(198, 243, 107, .12);
+        --warm: #e8cba3;
+        --shadow: 0 30px 90px rgba(0, 0, 0, .28);
+        --radius: 22px;
+      }
+
+      [data-theme="light"] {
+        color-scheme: light;
+        --page: #f4f5f0;
+        --surface: #fff;
+        --surface-raised: #f7f8f3;
+        --surface-soft: #ecefe7;
+        --text: #20251f;
+        --muted: #667066;
+        --faint: #838b82;
+        --line: rgba(32, 37, 31, .12);
+        --accent: #4a7418;
+        --accent-ink: #fff;
+        --accent-soft: rgba(74, 116, 24, .1);
+        --warm: #a76f35;
+        --shadow: 0 30px 90px rgba(30, 42, 20, .09);
+      }
+
+      [data-theme="paper"] {
+        color-scheme: light;
+        --page: #f1e9d8;
+        --surface: #fbf5e9;
+        --surface-raised: #f6efdf;
+        --surface-soft: #eee4cf;
+        --text: #29261e;
+        --muted: #746d5c;
+        --faint: #8c836f;
+        --line: rgba(41, 38, 30, .13);
+        --accent: #6b8034;
+        --accent-ink: #fff;
+        --accent-soft: rgba(107, 128, 52, .12);
+        --warm: #9a6337;
+        --shadow: 0 30px 90px rgba(57, 43, 21, .1);
+      }
+
+      [data-theme="forest"] {
+        color-scheme: dark;
+        --page: #141a15;
+        --surface: #1b231c;
+        --surface-raised: #242f25;
+        --surface-soft: #2c392d;
+        --text: #f0f3e9;
+        --muted: #a7b09f;
+        --faint: #7d8977;
+        --line: rgba(229, 239, 218, .12);
+        --accent: #c1d58a;
+        --accent-ink: #202a15;
+        --accent-soft: rgba(193, 213, 138, .13);
+        --warm: #d2b88e;
+        --shadow: 0 30px 90px rgba(0, 0, 0, .3);
+      }
+
+      [data-theme="ocean"] {
+        color-scheme: dark;
+        --page: #10191d;
+        --surface: #172329;
+        --surface-raised: #1d2c32;
+        --surface-soft: #263a40;
+        --text: #eaf5f5;
+        --muted: #9fb6b9;
+        --faint: #758d91;
+        --line: rgba(219, 245, 245, .12);
+        --accent: #78dfd2;
+        --accent-ink: #102723;
+        --accent-soft: rgba(120, 223, 210, .12);
+        --warm: #e8cba3;
+        --shadow: 0 30px 90px rgba(0, 0, 0, .32);
+      }
+
+      [data-theme="sunset"] {
+        color-scheme: dark;
+        --page: #211713;
+        --surface: #2a1e19;
+        --surface-raised: #38261f;
+        --surface-soft: #493129;
+        --text: #fff3e8;
+        --muted: #c7a99a;
+        --faint: #9c7d70;
+        --line: rgba(255, 228, 209, .13);
+        --accent: #ffb078;
+        --accent-ink: #381d0b;
+        --accent-soft: rgba(255, 176, 120, .13);
+        --warm: #e8cba3;
+        --shadow: 0 30px 90px rgba(0, 0, 0, .3);
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-width: 320px;
+        background:
+          radial-gradient(ellipse at 82% 4%, rgba(198, 243, 107, .07), transparent 28rem),
+          var(--page);
+        color: var(--text);
+        font-family: "DM Sans", sans-serif;
+        transition: background .25s ease, color .25s ease;
+      }
+      body[data-background="aurora"] {
+        background:
+          radial-gradient(ellipse at 82% 4%, rgba(122, 181, 139, .12), transparent 31rem),
+          radial-gradient(ellipse at 5% 52%, rgba(195, 176, 120, .08), transparent 33rem),
+          var(--page);
+      }
+      body[data-background="forest"] {
+        background:
+          radial-gradient(ellipse at 88% 12%, rgba(124, 174, 104, .16), transparent 33rem),
+          radial-gradient(ellipse at 8% 78%, rgba(53, 105, 78, .15), transparent 36rem),
+          var(--page);
+      }
+      body[data-background="ocean"] {
+        background:
+          radial-gradient(ellipse at 84% 7%, rgba(85, 204, 220, .16), transparent 32rem),
+          radial-gradient(ellipse at 8% 75%, rgba(45, 122, 155, .13), transparent 36rem),
+          var(--page);
+      }
+      body[data-background="dusk"] {
+        background:
+          radial-gradient(ellipse at 78% 9%, rgba(214, 174, 119, .14), transparent 31rem),
+          radial-gradient(ellipse at 11% 70%, rgba(105, 121, 82, .1), transparent 36rem),
+          var(--page);
+      }
+      body[data-background="library"] {
+        background:
+          radial-gradient(ellipse at 90% 4%, rgba(214, 174, 119, .14), transparent 31rem),
+          radial-gradient(ellipse at 8% 82%, rgba(116, 102, 74, .11), transparent 35rem),
+          var(--page);
+      }
+      button, input { font: inherit; }
+      button { color: inherit; }
+      button:focus-visible, input:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+      }
+      .hidden { display: none !important; }
+      .muted { color: var(--muted); }
+      .eyebrow {
+        color: var(--accent);
+        font-size: .73rem;
+        font-weight: 700;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+      }
+      .brand-wordmark {
+        margin: 0;
+        font-family: Manrope, sans-serif;
+        font-size: 1.08rem;
+        font-weight: 800;
+        letter-spacing: -.055em;
+        line-height: 1.05;
+      }
+      .brand-wordmark span { display: block; }
+      .brand-lockup { display: flex; align-items: center; gap: 12px; }
+      .brand-logo {
+        width: 43px;
+        height: 43px;
+        border-radius: 12px;
+        object-fit: cover;
+        background: #fff;
+      }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        min-height: 44px;
+        padding: 0 17px;
+        border: 1px solid transparent;
+        border-radius: 12px;
+        background: var(--accent);
+        color: var(--accent-ink);
+        cursor: pointer;
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform .18s ease, filter .18s ease, background .18s ease;
+      }
+      .button:hover { filter: brightness(1.06); transform: translateY(-1px); }
+      .button:active { transform: translateY(0); }
+      .button.secondary {
+        border-color: var(--line);
+        background: var(--surface-raised);
+        color: var(--text);
+      }
+      .button.ghost {
+        border-color: transparent;
+        background: transparent;
+        color: var(--muted);
+      }
+      .button.small { min-height: 38px; padding: 0 13px; font-size: .87rem; }
+      .icon-button {
+        display: inline-grid;
+        width: 42px;
+        height: 42px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        background: var(--surface);
+        color: var(--text);
+        cursor: pointer;
+      }
+      .icon-button:hover { background: var(--surface-soft); }
+
+      /* Welcome screen */
+      .auth-screen {
+        display: grid;
+        min-height: 100vh;
+        grid-template-columns: minmax(0, 1.1fr) minmax(360px, .9fr);
+      }
+      .auth-story {
+        position: relative;
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+        padding: clamp(28px, 5vw, 68px);
+        border-right: 1px solid var(--line);
+        background:
+          radial-gradient(ellipse at 48% 55%, rgba(198, 243, 107, .16), transparent 34%),
+          linear-gradient(145deg, #171b18 4%, #101210 70%);
+      }
+      .auth-story::after {
+        position: absolute;
+        right: -120px;
+        bottom: -240px;
+        width: 600px;
+        height: 600px;
+        border: 1px solid rgba(198, 243, 107, .12);
+        border-radius: 50%;
+        box-shadow: 0 0 0 48px rgba(198, 243, 107, .025), 0 0 0 100px rgba(198, 243, 107, .02);
+        content: "";
+        pointer-events: none;
+      }
+      .auth-logo {
+        position: relative;
+        z-index: 1;
+        width: min(390px, 78%);
+        margin: auto;
+        border-radius: 28px;
+        box-shadow: 0 28px 90px rgba(0, 0, 0, .3);
+      }
+      .auth-copy { position: relative; z-index: 1; max-width: 600px; }
+      .auth-copy h1 {
+        max-width: 650px;
+        margin: 22px 0 16px;
+        font-family: Manrope, sans-serif;
+        font-size: clamp(2.4rem, 5.2vw, 5.5rem);
+        font-weight: 600;
+        letter-spacing: -.075em;
+        line-height: .98;
+      }
+      .auth-copy h1 em { color: var(--accent); font-style: normal; }
+      .auth-copy p { max-width: 440px; margin: 0; color: #a9afa9; font-size: 1.04rem; line-height: 1.7; }
+      .auth-foot { color: #777e78; font-size: .78rem; }
+      .auth-panel {
+        display: grid;
+        align-content: center;
+        justify-items: center;
+        padding: 36px;
+      }
+      .auth-form-wrap { width: min(100%, 410px); }
+      .auth-form-wrap h2 {
+        margin: 0 0 8px;
+        font-family: Manrope, sans-serif;
+        font-size: 2rem;
+        letter-spacing: -.055em;
+      }
+      .auth-subtitle { margin: 0 0 28px; color: var(--muted); line-height: 1.6; }
+      .field { display: grid; gap: 8px; margin-bottom: 16px; }
+      .field label { color: var(--text); font-size: .88rem; font-weight: 600; }
+      .field input {
+        width: 100%;
+        height: 49px;
+        padding: 0 14px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--surface);
+        color: var(--text);
+      }
+      .field input::placeholder { color: var(--faint); }
+      .auth-submit { width: 100%; margin-top: 5px; }
+      .auth-toggle { margin: 20px 0 0; color: var(--muted); text-align: center; font-size: .9rem; }
+      .text-button {
+        padding: 0;
+        border: 0;
+        background: none;
+        color: var(--accent);
+        cursor: pointer;
+        font-weight: 700;
+      }
+      .form-message { min-height: 20px; margin: 13px 0 0; color: #ff9a8c; font-size: .86rem; }
+
+      /* Signed-in library */
+      .app-shell { min-height: 100vh; }
+      .topbar {
+        position: sticky;
+        z-index: 5;
+        top: 0;
+        display: flex;
+        height: 76px;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 clamp(20px, 5vw, 74px);
+        border-bottom: 1px solid var(--line);
+        background: color-mix(in srgb, var(--page) 88%, transparent);
+        backdrop-filter: blur(18px);
+      }
+      .topbar-left, .topbar-right { display: flex; align-items: center; gap: 28px; }
+      .topbar-nav { display: flex; gap: 24px; }
+      .xp-pill {
+        display: inline-flex;
+        min-height: 38px;
+        align-items: center;
+        gap: 7px;
+        padding: 0 12px;
+        border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--line));
+        border-radius: 12px;
+        background: var(--accent-soft);
+        color: var(--text);
+        font-size: .83rem;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .xp-pill span { color: var(--accent); }
+      .nav-link {
+        padding: 8px 0;
+        border: 0;
+        background: none;
+        color: var(--muted);
+        cursor: pointer;
+        font-size: .9rem;
+      }
+      .nav-link:hover, .nav-link.active { color: var(--text); }
+      .profile-menu { display: flex; align-items: center; gap: 11px; }
+      .profile-name { max-width: 130px; overflow: hidden; color: var(--muted); font-size: .85rem; text-overflow: ellipsis; white-space: nowrap; }
+      .avatar {
+        display: grid;
+        width: 39px;
+        height: 39px;
+        place-items: center;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        background: var(--surface-soft);
+        font-size: 1.15rem;
+      }
+      .avatar img { width: 100%; height: 100%; object-fit: cover; }
+      main { width: min(1240px, calc(100% - 48px)); margin: 0 auto; padding: 52px 0 80px; }
+      .greeting { margin-bottom: 30px; }
+      .greeting h1 {
+        margin: 10px 0 7px;
+        font-family: Manrope, sans-serif;
+        font-size: clamp(2rem, 4vw, 3.25rem);
+        font-weight: 600;
+        letter-spacing: -.045em;
+      }
+      .greeting p { margin: 0; color: var(--muted); }
+      .reading-stats { display: flex; flex-wrap: wrap; gap: 10px; margin: 23px 0 20px; }
+      .stat-chip {
+        display: inline-flex;
+        min-height: 43px;
+        align-items: center;
+        gap: 8px;
+        padding: 0 14px;
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        background: var(--surface);
+        color: var(--muted);
+        font-size: .87rem;
+      }
+      .stat-chip strong { color: var(--text); font-weight: 700; }
+      .dashboard-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(270px, .8fr); gap: 18px; }
+      .feature-card {
+        position: relative;
+        display: grid;
+        min-height: 370px;
+        grid-template-columns: 1fr .8fr;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background:
+          radial-gradient(ellipse at 83% 45%, rgba(198, 243, 107, .15), transparent 36%),
+          linear-gradient(135deg, var(--surface-raised), var(--surface));
+        box-shadow: var(--shadow);
+      }
+      .feature-copy { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: clamp(25px, 4vw, 50px); }
+      .feature-copy h2 {
+        max-width: 420px;
+        margin: 15px 0 12px;
+        font-family: Manrope, sans-serif;
+        font-size: clamp(1.9rem, 3.4vw, 3.1rem);
+        font-weight: 600;
+        letter-spacing: -.07em;
+        line-height: 1.05;
+      }
+      .feature-copy p { max-width: 410px; margin: 0 0 24px; color: var(--muted); line-height: 1.6; }
+      .book-art {
+        position: relative;
+        display: grid;
+        min-height: 100%;
+        place-items: center;
+        overflow: hidden;
+      }
+      .book-cover {
+        position: relative;
+        display: flex;
+        width: min(210px, 72%);
+        aspect-ratio: .69;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+        padding: 24px 20px;
+        border: 1px solid rgba(255,255,255,.25);
+        border-radius: 5px 13px 13px 5px;
+        background:
+          linear-gradient(145deg, rgba(14, 25, 30, .05), rgba(7, 14, 18, .75)),
+          radial-gradient(ellipse at 58% 64%, #d0a669 0, #9f7045 18%, #263b35 43%, #142329 75%);
+        box-shadow: 22px 25px 48px rgba(0,0,0,.4), inset 5px 0 9px rgba(255,255,255,.08);
+        transform: rotate(4deg);
+        transition: transform .3s ease;
+      }
+      .feature-card:hover .book-cover { transform: rotate(1deg) translateY(-4px); }
+      .book-cover::before {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, rgba(0,0,0,.29), transparent 13%, transparent 85%, rgba(0,0,0,.17));
+        content: "";
+      }
+      .cover-stars { position: absolute; top: 36%; left: 12%; color: #f2d89e; font-size: 1.25rem; letter-spacing: .5em; opacity: .8; }
+      .cover-horizon {
+        position: absolute;
+        right: -10%;
+        bottom: 25%;
+        left: -10%;
+        height: 36%;
+        border-radius: 50% 50% 0 0;
+        background: linear-gradient(180deg, #bc9567, #263d3b 42%, #17292e);
+      }
+      .cover-title, .cover-author { position: relative; z-index: 1; color: #fff5dc; }
+      .cover-title { max-width: 140px; font-family: Manrope, sans-serif; font-size: 1.16rem; font-weight: 800; letter-spacing: -.06em; line-height: 1.05; }
+      .cover-author { font-size: .66rem; letter-spacing: .17em; text-transform: uppercase; }
+      .feature-meta { display: flex; align-items: center; gap: 9px; margin-top: 18px; color: var(--muted); font-size: .81rem; }
+      .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+      .side-card {
+        display: flex;
+        min-height: 370px;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 27px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+      }
+      .side-card h3 { margin: 0 0 9px; font-family: Manrope, sans-serif; font-size: 1.2rem; letter-spacing: -.04em; }
+      .side-card p { margin: 0; color: var(--muted); font-size: .91rem; line-height: 1.6; }
+      .progress-ring {
+        display: grid;
+        width: 142px;
+        height: 142px;
+        place-items: center;
+        margin: 25px auto;
+        border-radius: 50%;
+        background: conic-gradient(var(--accent) var(--progress, 0%), var(--surface-soft) 0);
+      }
+      .progress-inner {
+        display: grid;
+        width: 119px;
+        height: 119px;
+        place-content: center;
+        border-radius: 50%;
+        background: var(--surface);
+        text-align: center;
+      }
+      .progress-number { font-family: Manrope, sans-serif; font-size: 2rem; font-weight: 700; letter-spacing: -.06em; }
+      .progress-label { color: var(--muted); font-size: .76rem; }
+      .section-heading { display: flex; align-items: end; justify-content: space-between; margin: 53px 0 19px; }
+      .section-heading h2 { margin: 8px 0 0; font-family: Manrope, sans-serif; font-size: 1.7rem; letter-spacing: -.035em; }
+      .section-heading p { margin: 0; color: var(--muted); font-size: .88rem; }
+      .book-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 15px; }
+      .shelf-card {
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 17px;
+        background: var(--surface);
+        cursor: pointer;
+        text-align: left;
+        transition: border-color .2s ease, transform .2s ease, background .2s ease;
+      }
+      .shelf-card:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); background: var(--surface-raised); }
+      .shelf-cover {
+        display: flex;
+        height: 180px;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 17px;
+        border-radius: 10px;
+        color: #fff;
+      }
+      .shelf-cover .cover-mark { font-size: 1.5rem; opacity: .8; }
+      .shelf-cover strong { max-width: 170px; font-family: Manrope, sans-serif; font-size: 1.1rem; letter-spacing: -.04em; line-height: 1.05; }
+      .shelf-card h3 { margin: 14px 2px 4px; font-size: .95rem; }
+      .shelf-card p { margin: 0 2px 3px; color: var(--muted); font-size: .8rem; }
+      .shelf-tag { display: inline-block; margin: 9px 2px 2px; color: var(--faint); font-size: .7rem; }
+      .bottom-banner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        margin-top: 48px;
+        padding: 25px 29px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--surface-raised);
+      }
+      .bottom-banner h3 { margin: 0 0 6px; font-family: Manrope, sans-serif; letter-spacing: -.035em; }
+      .bottom-banner p { margin: 0; color: var(--muted); font-size: .89rem; }
+
+      /* Reader and settings overlays */
+      .modal-backdrop {
+        position: fixed;
+        z-index: 20;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        overflow: auto;
+        padding: 24px;
+        background: rgba(4, 6, 5, .76);
+        backdrop-filter: blur(12px);
+      }
+      .modal {
+        width: min(100%, 800px);
+        max-height: min(90vh, 900px);
+        overflow: auto;
+        border: 1px solid var(--line);
+        border-radius: 23px;
+        background: var(--page);
+        box-shadow: var(--shadow);
+      }
+      .modal-header {
+        position: sticky;
+        z-index: 2;
+        top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 22px;
+        border-bottom: 1px solid var(--line);
+        background: color-mix(in srgb, var(--page) 92%, transparent);
+        backdrop-filter: blur(10px);
+      }
+      .modal-header h2 { margin: 0; font-family: Manrope, sans-serif; font-size: 1.05rem; letter-spacing: -.03em; }
+      .modal-content { padding: clamp(21px, 5vw, 42px); }
+      .reader-title { margin: 9px 0 8px; font-family: Manrope, sans-serif; font-size: clamp(2rem, 5vw, 3.3rem); letter-spacing: -.07em; line-height: 1.05; }
+      .reader-lede { margin: 0; color: var(--muted); line-height: 1.6; }
+      .timer-panel {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin: 26px 0;
+        padding: 17px 19px;
+        border: 1px solid var(--line);
+        border-radius: 15px;
+        background: var(--surface);
+      }
+      .timer-value { font-family: Manrope, sans-serif; font-size: 1.55rem; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -.04em; }
+      .timer-caption { color: var(--muted); font-size: .8rem; }
+      .reading-note {
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--surface);
+      }
+      .reading-note h3 { margin: 0 0 9px; font-family: Manrope, sans-serif; letter-spacing: -.04em; }
+      .reading-note p { margin: 0; color: var(--muted); line-height: 1.8; }
+      .reading-note .chapter-context { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); font-size: .88rem; }
+      .animation-picker {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-top: 16px;
+        padding: 14px 16px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--surface);
+      }
+      .animation-picker strong { display: block; font-size: .87rem; }
+      .animation-picker p { margin: 4px 0 0; color: var(--muted); font-size: .78rem; }
+      .reader-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+      .reader-actions .button { min-width: 150px; }
+      .timer-panel.is-running .status-dot { animation: timer-pulse 1.8s ease-in-out infinite; }
+      @keyframes timer-pulse {
+        50% { box-shadow: 0 0 0 7px rgba(120, 216, 147, .13); }
+      }
+      .animation-panel { margin-top: 30px; padding-top: 26px; border-top: 1px solid var(--line); }
+      .animation-panel h3 { margin: 8px 0; font-family: Manrope, sans-serif; font-size: 1.4rem; letter-spacing: -.05em; }
+      .animation-panel > p { margin: 0 0 17px; color: var(--muted); line-height: 1.6; }
+      .animation-drop {
+        display: grid;
+        min-height: 210px;
+        place-items: center;
+        padding: 24px;
+        border: 1px dashed var(--line);
+        border-radius: 16px;
+        background: var(--surface);
+        text-align: center;
+      }
+      .animation-drop video { width: 100%; max-height: 430px; border-radius: 11px; background: #050605; }
+      .animation-drop input { max-width: 100%; margin-top: 16px; color: var(--muted); }
+      .animation-symbol { display: grid; width: 54px; height: 54px; place-items: center; margin: 0 auto 13px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-size: 1.35rem; }
+      .settings-modal { width: min(100%, 520px); }
+      .settings-section { padding: 20px 0; border-bottom: 1px solid var(--line); }
+      .settings-section:first-child { padding-top: 0; }
+      .settings-section:last-child { padding-bottom: 0; border-bottom: 0; }
+      .settings-section h3 { margin: 0 0 5px; font-family: Manrope, sans-serif; font-size: 1rem; }
+      .settings-section p { margin: 0 0 14px; color: var(--muted); font-size: .85rem; line-height: 1.5; }
+      .theme-options, .avatar-options { display: flex; flex-wrap: wrap; gap: 9px; }
+      .theme-choice, .avatar-choice {
+        min-height: 39px;
+        padding: 0 13px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--surface);
+        color: var(--text);
+        cursor: pointer;
+      }
+      .theme-choice.selected, .avatar-choice.selected { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+      .avatar-choice { display: grid; width: 44px; height: 44px; place-items: center; padding: 0; font-size: 1.25rem; }
+      .upload-label { display: inline-flex; min-height: 39px; align-items: center; padding: 0 13px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--text); cursor: pointer; font-size: .85rem; }
+      .upload-label input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+      .reward-balance {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin: 0 0 20px;
+        padding: 14px 16px;
+        border: 1px solid color-mix(in srgb, var(--accent) 32%, var(--line));
+        border-radius: 13px;
+        background: var(--accent-soft);
+      }
+      .reward-balance strong { font-family: Manrope, sans-serif; font-size: 1.15rem; }
+      .reward-balance span { color: var(--muted); font-size: .82rem; }
+      .reward-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+      .reward-card {
+        display: flex;
+        min-width: 0;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--surface);
+      }
+      .reward-swatch {
+        display: grid;
+        width: 38px;
+        height: 38px;
+        flex: 0 0 38px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        color: var(--text);
+        font-size: 1.25rem;
+      }
+      .reward-info { min-width: 0; flex: 1; }
+      .reward-info strong { display: block; overflow: hidden; font-size: .82rem; text-overflow: ellipsis; white-space: nowrap; }
+      .reward-info span { display: block; margin-top: 3px; color: var(--muted); font-size: .72rem; }
+      .reward-action {
+        flex: 0 0 auto;
+        min-height: 32px;
+        padding: 0 9px;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: var(--surface-raised);
+        color: var(--text);
+        cursor: pointer;
+        font-size: .72rem;
+        font-weight: 700;
+      }
+      .reward-action:hover:not(:disabled) { border-color: var(--accent); }
+      .reward-action:disabled { cursor: default; opacity: .48; }
+      .reward-action.equipped { border-color: transparent; background: var(--accent-soft); color: var(--accent); }
+      .toast {
+        position: fixed;
+        z-index: 30;
+        right: 24px;
+        bottom: 24px;
+        max-width: calc(100% - 48px);
+        padding: 13px 17px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--surface-raised);
+        box-shadow: var(--shadow);
+        color: var(--text);
+        font-size: .9rem;
+      }
+      footer { padding: 25px 24px 35px; color: var(--faint); text-align: center; font-size: .8rem; }
+
+      @media (max-width: 880px) {
+        .auth-screen { grid-template-columns: 1fr; }
+        .auth-story { min-height: 430px; padding: 28px; border-right: 0; border-bottom: 1px solid var(--line); }
+        .auth-logo { position: absolute; top: 50%; right: 8%; width: min(230px, 35%); margin: 0; transform: translateY(-50%); }
+        .auth-copy { max-width: 56%; }
+        .auth-copy h1 { font-size: clamp(2.3rem, 6vw, 4rem); }
+        .auth-foot { margin-top: 35px; }
+        .auth-panel { padding: 42px 24px 56px; }
+      }
+      @media (max-width: 700px) {
+        .topbar { height: 68px; padding: 0 12px; }
+        .topbar-left, .topbar-right { gap: 8px; }
+        .topbar-nav { display: none; }
+        .brand-logo { width: 38px; height: 38px; }
+        .brand-wordmark { font-size: .94rem; }
+        .profile-name { display: none; }
+        .xp-pill { min-height: 35px; padding: 0 9px; font-size: .76rem; }
+        main { width: min(100% - 32px, 560px); padding-top: 32px; }
+        .dashboard-grid { grid-template-columns: 1fr; }
+        .feature-card { min-height: 330px; grid-template-columns: 1fr .63fr; }
+        .feature-copy { padding: 24px 0 24px 23px; }
+        .feature-copy h2 { font-size: 2rem; }
+        .feature-copy p { font-size: .88rem; }
+        .book-cover { width: 82%; padding: 17px 14px; }
+        .cover-title { font-size: .94rem; }
+        .side-card { min-height: auto; }
+        .side-card .progress-ring { margin: 22px auto 12px; }
+        .book-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; }
+        .shelf-cover { height: 155px; padding: 13px; }
+        .shelf-cover strong { font-size: 1rem; }
+        .section-heading { margin-top: 40px; }
+        .bottom-banner { align-items: flex-start; flex-direction: column; }
+        .reward-grid { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 400px) {
+        .profile-menu { display: none; }
+        .topbar-right { gap: 6px; }
+        .topbar .button.small { padding: 0 9px; }
+        .xp-pill { padding: 0 8px; }
+      }
+      @media (max-width: 360px) {
+        .topbar .brand-wordmark { display: none; }
+      }
+      @media (max-width: 480px) {
+        .auth-story { min-height: 360px; padding: 23px; }
+        .auth-logo { top: 42%; right: 6%; width: 34%; }
+        .auth-copy { max-width: 65%; }
+        .auth-copy h1 { margin-top: 15px; font-size: 2.45rem; }
+        .auth-copy p { font-size: .9rem; }
+        .auth-copy .eyebrow { font-size: .64rem; }
+        .auth-foot { font-size: .69rem; }
+        .feature-card { min-height: 320px; grid-template-columns: 1fr .48fr; }
+        .feature-copy h2 { font-size: 1.72rem; }
+        .feature-copy p { max-width: 220px; }
+        .feature-copy .button { padding: 0 12px; font-size: .83rem; }
+        .feature-meta { align-items: flex-start; font-size: .72rem; }
+        .book-cover { width: 95%; }
+        .timer-panel { align-items: flex-start; flex-direction: column; }
+        .reader-actions .button { flex: 1; }
+        .animation-picker { align-items: flex-start; flex-direction: column; }
+      }
+    </style>
+  </head>
+  <body>
+    <section id="authScreen" class="auth-screen">
+      <div class="auth-story">
+        <div class="brand-lockup">
+          <img class="brand-logo" src="logo.png" alt="Skimming to Seeing">
+          <p class="brand-wordmark"><span>Skimming</span><span>to Seeing</span></p>
+        </div>
+        <img class="auth-logo" src="logo.png" alt="">
+        <div class="auth-copy">
+          <span class="eyebrow">A little more than reading</span>
+          <h1>Read the page.<br><em>See the story.</em></h1>
+          <p>A calmer corner to read, track your time, and bring the moments you love to life.</p>
+        </div>
+        <div class="auth-foot">A reading space for every kind of reader.</div>
+      </div>
+      <div class="auth-panel">
+        <div class="auth-form-wrap">
+          <span class="eyebrow">Your reading room</span>
+          <h2 id="authTitle">Welcome back</h2>
+          <p class="auth-subtitle" id="authSubtitle">Sign in to pick up right where you left off.</p>
+          <form id="authForm">
+            <div class="field hidden" id="nameField">
+              <label for="nameInput">Your name</label>
+              <input id="nameInput" name="name" autocomplete="name" placeholder="How should we call you?">
+            </div>
+            <div class="field">
+              <label for="emailInput">Email address</label>
+              <input id="emailInput" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+            </div>
+            <div class="field">
+              <label for="passwordInput">Password</label>
+              <input id="passwordInput" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+            </div>
+            <button class="button auth-submit" id="authSubmit" type="submit">Sign in <span aria-hidden="true">→</span></button>
+            <p class="form-message" id="authMessage" role="status" aria-live="polite"></p>
+          </form>
+          <p class="auth-toggle"><span id="authToggleText">New to the reading room?</span> <button class="text-button" id="authToggle" type="button">Create an account</button></p>
+        </div>
+      </div>
+    </section>
+
+    <div id="appShell" class="app-shell hidden">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="brand-lockup">
+            <img class="brand-logo" src="logo.png" alt="Skimming to Seeing">
+            <p class="brand-wordmark"><span>Skimming to</span><span>Seeing</span></p>
+          </div>
+          <nav class="topbar-nav" aria-label="Main navigation">
+            <button class="nav-link active" type="button" data-scroll="home">Home</button>
+            <button class="nav-link" type="button" data-scroll="library">My library</button>
+          </nav>
+        </div>
+        <div class="topbar-right">
+          <button class="xp-pill" id="xpPill" type="button" aria-label="View XP and rewards"><span>✦</span><strong id="xpBalance">0</strong> XP</button>
+          <button class="icon-button" id="settingsButton" type="button" aria-label="Open settings" title="Settings">⚙</button>
+          <div class="profile-menu">
+            <span class="profile-name" id="profileName"></span>
+            <span class="avatar" id="profileAvatar" aria-label="Profile picture">🌿</span>
+          </div>
+          <button class="button ghost small" id="signOutButton" type="button">Sign out</button>
+        </div>
+      </header>
+
+      <main id="home">
+        <div class="greeting">
+          <span class="eyebrow">Your reading room</span>
+          <h1 id="greetingTitle">Good to see you.</h1>
+          <p>One page at a time. Your next story is waiting.</p>
+        </div>
+        <div class="reading-stats" aria-label="Reading stats">
+          <div class="stat-chip">📚 <strong id="booksReadCount">0</strong> books read</div>
+          <div class="stat-chip">◷ <strong id="totalReadingTime">0</strong> min reading</div>
+          <button class="stat-chip" id="statsRewardsButton" type="button">✦ <strong id="statsXpBalance">0</strong> XP · Rewards</button>
+        </div>
+
+        <section class="dashboard-grid" aria-label="Your reading dashboard">
+          <article class="feature-card">
+            <div class="feature-copy">
+              <span class="eyebrow">Featured read · Chapter 3</span>
+              <h2>Life of Pi</h2>
+              <p>Step into Yann Martel's unforgettable story. Take your time with chapter three, then see the moment come alive.</p>
+              <button class="button" id="continueButton" type="button">Start chapter <span aria-hidden="true">→</span></button>
+              <div class="feature-meta"><span class="status-dot"></span><span id="chapterStatus">A reading timer and animation await</span></div>
+            </div>
+            <div class="book-art" aria-label="Life of Pi inspired cover art">
+              <div class="book-cover">
+                <span class="cover-stars">✦ · ✦</span>
+                <span class="cover-title">Life of<br>Pi</span>
+                <span class="cover-horizon"></span>
+                <span class="cover-author">Yann Martel</span>
+              </div>
+            </div>
+          </article>
+          <aside class="side-card">
+            <div>
+              <span class="eyebrow">Your little milestones</span>
+              <h3>Every minute counts.</h3>
+              <p>Your reading time is saved on this device, so you can come back whenever you're ready.</p>
+            </div>
+            <div class="progress-ring" id="progressRing" style="--progress: 0%">
+              <div class="progress-inner">
+                <span class="progress-number" id="minutesRead">0</span>
+                <span class="progress-label">minutes read</span>
+              </div>
+            </div>
+            <p id="progressCaption">Your first chapter is a great place to begin.</p>
+          </aside>
+        </section>
+
+        <section id="library">
+          <div class="section-heading">
+            <div><span class="eyebrow">A shelf for every mood</span><h2>Explore the library</h2></div>
+            <p>More stories to make your own.</p>
+          </div>
+          <div class="book-grid" id="bookGrid" aria-label="Books in the library"></div>
+        </section>
+
+        <section class="bottom-banner">
+          <div>
+            <h3>Make this space feel like yours.</h3>
+            <p>Pick a look, choose an avatar, or add a photo from your device.</p>
+          </div>
+          <button class="button secondary" id="customizeButton" type="button">Personalize your space <span aria-hidden="true">↗</span></button>
+        </section>
+      </main>
+      <footer>Skimming to Seeing · Read at your pace. See it your way.</footer>
+    </div>
+
+    <div id="readerBackdrop" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="readerHeading">
+      <section class="modal">
+        <header class="modal-header">
+          <h2>Life of Pi <span class="muted">/ Chapter 3</span></h2>
+          <button class="icon-button close-modal" type="button" aria-label="Close reading room">×</button>
+        </header>
+        <div class="modal-content">
+          <span class="eyebrow">Your reading room</span>
+          <h1 class="reader-title" id="readerHeading">Chapter 3</h1>
+          <p class="reader-lede">Find a comfortable spot, open your copy of the book, and read at your own pace.</p>
+          <div class="timer-panel" id="timerPanel">
+            <div><div class="timer-value" id="timerValue">00:00</div><div class="timer-caption" id="timerCaption">Time in this reading session</div></div>
+            <span class="status-dot" id="timerDot" aria-label="Timer is stopped"></span>
+          </div>
+          <div class="reading-note">
+            <h3>Ready when you are</h3>
+            <p>Settle in with chapter 3. Your reading timer will keep track while you read, and you can pause whenever you need a moment.</p>
+            <p class="chapter-context">A quick note: this chapter introduces Pi's close connection with animals and the zoo where he grows up.</p>
+          </div>
+          <div class="animation-picker">
+            <div>
+              <strong>Chapter 3 animation</strong>
+              <p id="animationSelectionStatus">Choose your video now; it’ll play when you finish the chapter.</p>
+            </div>
+            <label class="upload-label">Choose video
+              <input id="animationUpload" type="file" accept="video/*">
+            </label>
+          </div>
+          <div class="reader-actions">
+            <button class="button" id="timerStartButton" type="button">Start reading <span aria-hidden="true">→</span></button>
+            <button class="button secondary hidden" id="pauseReadingButton" type="button">Pause reading</button>
+            <button class="button secondary hidden" id="endTimerButton" type="button">End timer</button>
+            <button class="button secondary hidden" id="continueReadingButton" type="button">Continue reading</button>
+            <button class="button hidden" id="finishChapterButton" type="button">I’m done with the chapter <span aria-hidden="true">→</span></button>
+          </div>
+          <section class="animation-panel hidden" id="animationPanel">
+            <span class="eyebrow">Chapter 3 · after the read</span>
+            <h3 id="finishedHeading">You made it through the chapter.</h3>
+            <p id="finishedCopy">Your time is saved. Add your animation here to bring the chapter to life.</p>
+            <div class="animation-drop" id="animationDrop">
+              <div id="animationEmpty">
+                <div class="animation-symbol">▶</div>
+                <strong>Your Chapter 3 animation</strong>
+                <p class="muted">Choose your video above. It will play here when the chapter is complete.</p>
+              </div>
+              <video id="animationVideo" class="hidden" controls playsinline preload="metadata"></video>
+            </div>
+          </section>
+        </div>
+      </section>
+    </div>
+
+    <div id="settingsBackdrop" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="settingsHeading">
+      <section class="modal settings-modal">
+        <header class="modal-header">
+          <h2 id="settingsHeading">Make it yours</h2>
+          <button class="icon-button close-modal" type="button" aria-label="Close settings">×</button>
+        </header>
+        <div class="modal-content">
+          <section class="settings-section">
+            <h3>Choose a theme</h3>
+            <p>Buy a palette with XP, or earn milestone themes by spending time reading.</p>
+            <div class="reward-grid" id="themeRewards"></div>
+          </section>
+          <section class="settings-section">
+            <h3>Backgrounds</h3>
+            <p>Find a little atmosphere for your reading room.</p>
+            <div class="reward-grid" id="backgroundRewards"></div>
+          </section>
+          <section class="settings-section">
+            <h3>Pick an avatar</h3>
+            <p>Buy an avatar with XP, or unlock one as your reading time grows. Uploads stay free.</p>
+            <div class="reward-grid" id="avatarRewards"></div>
+            <div class="avatar-options">
+              <label class="upload-label">Upload photo
+                <input id="avatarUpload" type="file" accept="image/*">
+              </label>
+            </div>
+          </section>
+          <section class="settings-section">
+            <h3>Earn as you read</h3>
+            <p>Every 10 minutes of reading earns 10 XP. A few rewards unlock automatically at reading milestones; spend XP on the others.</p>
+            <div class="reward-balance" id="rewardBalance">
+              <span>Your XP balance</span><strong><span id="settingsXpBalance">0</span> XP</strong>
+            </div>
+            <p id="nextMilestone">Keep reading to discover your next reward.</p>
+          </section>
+          <section class="settings-section">
+            <h3>Your data</h3>
+            <p>Your account, theme, profile picture, and reading progress are saved in this browser.</p>
+          </section>
+        </div>
+      </section>
+    </div>
+    <div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
+
+    <script>
+      (() => {
+        const DEMO_EMAIL = "hello@skimmingtoseeing.com";
+        const DEMO_PASSWORD = "WelcometoS2S";
+        const STORAGE_KEY = "s2s-showcase-v1";
+        const books = [
+          { title: "Life of Pi", author: "Yann Martel", mark: "✦", colors: ["#142329", "#b58b5e"], note: "The featured chapter-three reading and animation.", animation: true },
+          { title: "The Secret Garden", author: "Frances Hodgson Burnett", mark: "❋", colors: ["#34483f", "#9aa879"], note: "A classic about a hidden garden and new beginnings." },
+          { title: "Alice's Adventures in Wonderland", author: "Lewis Carroll", mark: "♧", colors: ["#3d625c", "#c48f78"], note: "A curious journey through a world turned upside down." },
+          { title: "Little Women", author: "Louisa May Alcott", mark: "✿", colors: ["#794f48", "#dbb28f"], note: "Four sisters find their way through growing up together." },
+          { title: "The Wonderful Wizard of Oz", author: "L. Frank Baum", mark: "✦", colors: ["#3b5f69", "#d7bd75"], note: "A bright adventure along the road to the Emerald City." },
+          { title: "Anne of Green Gables", author: "L. M. Montgomery", mark: "❀", colors: ["#557260", "#d4ad82"], note: "A spirited new arrival finds a place to call home." }
+        ];
+        const rewards = {
+          theme: [
+            { id: "dark", name: "Midnight", icon: "🌙", cost: 0 },
+            { id: "light", name: "Daylight", icon: "☀️", cost: 80 },
+            { id: "paper", name: "Paperback", icon: "📜", cost: 80 },
+            { id: "forest", name: "Pine Grove", icon: "🌲", unlockAtMinutes: 60 },
+            { id: "ocean", name: "Deep Ocean", icon: "🌊", cost: 150 },
+            { id: "sunset", name: "Last Light", icon: "🌅", unlockAtMinutes: 180 }
+          ],
+          background: [
+            { id: "default", name: "Quiet Corner", icon: "◌", cost: 0 },
+            { id: "aurora", name: "Aurora", icon: "🌌", cost: 90 },
+            { id: "forest", name: "Mossy Forest", icon: "🌲", unlockAtMinutes: 30 },
+            { id: "ocean", name: "Tidal Blue", icon: "🌊", cost: 120 },
+            { id: "dusk", name: "Dusk Garden", icon: "🌆", unlockAtMinutes: 90 },
+            { id: "library", name: "The Old Library", icon: "📚", cost: 140 }
+          ],
+          avatar: [
+            { id: "🌿", name: "Little Leaf", icon: "🌿", cost: 0 },
+            { id: "🦊", name: "Curious Fox", icon: "🦊", cost: 40 },
+            { id: "🐯", name: "Brave Tiger", icon: "🐯", unlockAtMinutes: 60 },
+            { id: "🌊", name: "Wave Rider", icon: "🌊", cost: 60 },
+            { id: "🦉", name: "Night Owl", icon: "🦉", unlockAtMinutes: 120 },
+            { id: "🐈", name: "Book Cat", icon: "🐈", cost: 55 }
+          ]
+        };
+        const state = {
+          authMode: "login",
+          user: null,
+          data: {},
+          timerInterval: null,
+          startedAt: null,
+          elapsedBefore: 0,
+          readingSecondsBefore: 0,
+          animationUrl: null,
+          playAnimationWhenReady: false,
+          toastTimeout: null
+        };
+        const $ = (selector) => document.querySelector(selector);
+        const authScreen = $("#authScreen");
+        const appShell = $("#appShell");
+        const authForm = $("#authForm");
+
+        function readData() {
+          try {
+            const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+            return parsed && typeof parsed === "object" ? parsed : {};
+          } catch (error) {
+            console.error("Could not read showcase data.", error);
+            return {};
+          }
+        }
+
+        function writeData() {
+          try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data));
+            return true;
+          } catch (error) {
+            console.error("Could not save showcase data.", error);
+            showToast("Couldn't save changes in this browser. Check available storage.");
+            return false;
+          }
+        }
+
+        function accountKey(email) {
+          return email.trim().toLowerCase();
+        }
+
+        function createProfile(name) {
+          return {
+            name,
+            xp: 0,
+            readingSeconds: 0,
+            xpCreditedIntervals: 0,
+            booksRead: 0,
+            readBooks: [],
+            theme: "dark",
+            background: "default",
+            avatar: "🌿",
+            unlockedThemes: ["dark"],
+            unlockedBackgrounds: ["default"],
+            unlockedAvatars: ["🌿"]
+          };
+        }
+
+        function ensureFeaturedReader() {
+          state.data.profiles ||= {};
+          const seededProfile = {
+            ...createProfile("Reader"),
+            seedVersion: 2,
+            xp: 185,
+            readingSeconds: 7800,
+            xpCreditedIntervals: 13,
+            booksRead: 6,
+            readBooks: books.map((book) => book.title),
+            theme: "forest",
+            background: "forest",
+            avatar: "🦉",
+            unlockedThemes: ["dark", "light", "paper", "forest"],
+            unlockedBackgrounds: ["default", "aurora", "forest", "dusk"],
+            unlockedAvatars: ["🌿", "🦊", "🐯", "🦉"]
+          };
+          const savedProfile = state.data.profiles[DEMO_EMAIL] || {};
+          if (savedProfile.seedVersion !== 2) {
+            const previousTheme = savedProfile.theme === "lavender" ? "forest" : savedProfile.theme;
+            state.data.profiles[DEMO_EMAIL] = {
+              ...seededProfile,
+              ...savedProfile,
+              seedVersion: 2,
+              theme: previousTheme || seededProfile.theme,
+              xp: savedProfile.xp ?? seededProfile.xp,
+              readingSeconds: savedProfile.readingSeconds ?? seededProfile.readingSeconds,
+              xpCreditedIntervals: savedProfile.xpCreditedIntervals ?? seededProfile.xpCreditedIntervals,
+              booksRead: savedProfile.booksRead ?? seededProfile.booksRead,
+              readBooks: savedProfile.readBooks ?? seededProfile.readBooks,
+              unlockedThemes: [...new Set([...seededProfile.unlockedThemes, ...(savedProfile.unlockedThemes || []).filter((theme) => theme !== "lavender")])],
+              unlockedBackgrounds: [...new Set([...seededProfile.unlockedBackgrounds, ...(savedProfile.unlockedBackgrounds || [])])],
+              unlockedAvatars: [...new Set([...seededProfile.unlockedAvatars, ...(savedProfile.unlockedAvatars || [])])]
+            };
+          }
+          state.data.progress ||= {};
+          state.data.progress[DEMO_EMAIL] ||= {
+            elapsedSeconds: 0,
+            totalSeconds: 7800,
+            completed: true,
+            lastSessionSeconds: 780
+          };
+        }
+
+        function ensureProfile(email, name) {
+          if (email === DEMO_EMAIL) {
+            ensureFeaturedReader();
+            return state.data.profiles[DEMO_EMAIL];
+          }
+          state.data.profiles ||= {};
+          state.data.profiles[email] = {
+            ...createProfile(name),
+            ...(state.data.profiles[email] || {}),
+            name: state.data.profiles[email]?.name || name
+          };
+          const profile = state.data.profiles[email];
+          if (profile.theme === "lavender") profile.theme = "dark";
+          profile.unlockedThemes = (profile.unlockedThemes || []).filter((theme) => theme !== "lavender");
+          profile.unlockedThemes = [...new Set([...(profile.unlockedThemes || []), profile.theme || "dark"])];
+          profile.unlockedBackgrounds = [...new Set([...(profile.unlockedBackgrounds || []), profile.background || "default"])];
+          profile.unlockedAvatars = [...new Set([...(profile.unlockedAvatars || []), profile.avatar || "🌿"])];
+          return state.data.profiles[email];
+        }
+
+        async function passwordDigest(email, password) {
+          const bytes = new TextEncoder().encode(`${accountKey(email)}:${password}`);
+          const digest = await crypto.subtle.digest("SHA-256", bytes);
+          return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
+        }
+
+        function currentProfile() {
+          return state.user ? (state.data.profiles?.[state.user] || {}) : {};
+        }
+
+        function saveProfile(patch) {
+          state.data.profiles ||= {};
+          state.data.profiles[state.user] = { ...currentProfile(), ...patch };
+          writeData();
+          renderProfile();
+          renderProgress();
+          renderRewards();
+        }
+
+        function showToast(message) {
+          const toast = $("#toast");
+          toast.textContent = message;
+          toast.classList.remove("hidden");
+          clearTimeout(state.toastTimeout);
+          state.toastTimeout = setTimeout(() => toast.classList.add("hidden"), 3000);
+        }
+
+        function setAuthMode(mode) {
+          state.authMode = mode;
+          const signup = mode === "signup";
+          $("#authTitle").textContent = signup ? "Find your reading rhythm" : "Welcome back";
+          $("#authSubtitle").textContent = signup ? "Create a little space for your next story." : "Sign in to pick up right where you left off.";
+          $("#authToggleText").textContent = signup ? "Already have an account?" : "New to the reading room?";
+          $("#authToggle").textContent = signup ? "Sign in" : "Create an account";
+          $("#authSubmit").innerHTML = signup ? "Create account <span aria-hidden=\"true\">→</span>" : "Sign in <span aria-hidden=\"true\">→</span>";
+          $("#nameField").classList.toggle("hidden", !signup);
+          $("#passwordInput").autocomplete = signup ? "new-password" : "current-password";
+          $("#authMessage").textContent = "";
+        }
+
+        async function handleAuth(event) {
+          event.preventDefault();
+          const form = new FormData(authForm);
+          const email = accountKey(String(form.get("email") || ""));
+          const password = String(form.get("password") || "");
+          const name = String(form.get("name") || "").trim();
+          const message = $("#authMessage");
+          message.textContent = "";
+
+          if (state.authMode === "signup") {
+            if (!name) {
+              message.textContent = "Please enter your name.";
+              return;
+            }
+            if (password.length < 8) {
+              message.textContent = "Choose a password with at least 8 characters.";
+              return;
+            }
+            if (email === DEMO_EMAIL || state.data.users?.[email]) {
+              message.textContent = "An account with that email already exists. Try signing in.";
+              return;
+            }
+            try {
+              state.data.users ||= {};
+              state.data.users[email] = { name, passwordHash: await passwordDigest(email, password) };
+              if (!writeData()) {
+                delete state.data.users[email];
+                message.textContent = "Couldn't save your account in this browser. Check available storage and try again.";
+                return;
+              }
+              signIn(email, name);
+            } catch (error) {
+              console.error("Could not create account.", error);
+              message.textContent = "Couldn't create your account in this browser. Please try again.";
+            }
+            return;
+          }
+
+          if (email === DEMO_EMAIL && password === DEMO_PASSWORD) {
+            signIn(email, "Reader");
+            return;
+          }
+          const account = state.data.users?.[email];
+          if (account) {
+            try {
+              if (await passwordDigest(email, password) === account.passwordHash) {
+                signIn(email, account.name);
+                return;
+              }
+            } catch (error) {
+              console.error("Could not verify account.", error);
+              message.textContent = "Couldn't verify your account in this browser. Please try again.";
+              return;
+            }
+          }
+          message.textContent = "That email and password don't match. Please try again.";
+        }
+
+        function signIn(email, name) {
+          state.user = email;
+          sessionStorage.setItem("s2s-active-user", email);
+          ensureProfile(email, name);
+          writeData();
+          authScreen.classList.add("hidden");
+          appShell.classList.remove("hidden");
+          renderApp();
+        }
+
+        function signOut() {
+          if (state.startedAt !== null) pauseTimer(false);
+          sessionStorage.removeItem("s2s-active-user");
+          state.user = null;
+          appShell.classList.add("hidden");
+          authScreen.classList.remove("hidden");
+          authForm.reset();
+          setAuthMode("login");
+        }
+
+        function renderProfile() {
+          const profile = currentProfile();
+          const displayName = profile.name || "Reader";
+          $("#profileName").textContent = displayName;
+          $("#greetingTitle").textContent = `Good to see you, ${displayName.split(" ")[0]}.`;
+          const xp = Math.max(0, Math.floor(profile.xp || 0));
+          $("#xpBalance").textContent = String(xp);
+          $("#statsXpBalance").textContent = String(xp);
+          $("#settingsXpBalance").textContent = String(xp);
+          document.documentElement.dataset.theme = profile.theme || "dark";
+          document.body.dataset.background = profile.background || "default";
+          const avatar = $("#profileAvatar");
+          avatar.replaceChildren();
+          if (profile.avatarImage) {
+            const image = document.createElement("img");
+            image.src = profile.avatarImage;
+            image.alt = "Your profile picture";
+            avatar.append(image);
+          } else {
+            avatar.textContent = profile.avatar || "🌿";
+          }
+        }
+
+        function renderProgress() {
+          const progress = state.data.progress?.[state.user] || {};
+          const profile = currentProfile();
+          const minutes = Math.floor((profile.readingSeconds || 0) / 60);
+          const percent = progress.completed ? 100 : Math.min(93, Math.round(((progress.elapsedSeconds || 0) / 1200) * 100));
+          $("#minutesRead").textContent = String(minutes);
+          $("#totalReadingTime").textContent = String(minutes);
+          $("#booksReadCount").textContent = String(profile.booksRead || 0);
+          $("#progressRing").style.setProperty("--progress", `${percent}%`);
+          $("#progressCaption").textContent = progress.completed
+            ? "Chapter 3 complete. What a lovely milestone."
+            : progress.elapsedSeconds
+              ? "Your place in chapter 3 is saved for you."
+              : "Your first chapter is a great place to begin.";
+          $("#chapterStatus").textContent = progress.completed
+            ? `Chapter complete · ${formatTime(progress.lastSessionSeconds || 0)} read`
+            : progress.elapsedSeconds
+              ? "Your place is saved · Continue chapter 3"
+              : "A reading timer and animation await";
+          $("#continueButton").innerHTML = progress.completed
+            ? "View chapter <span aria-hidden=\"true\">→</span>"
+            : progress.elapsedSeconds
+              ? "Continue chapter <span aria-hidden=\"true\">→</span>"
+            : "Start chapter <span aria-hidden=\"true\">→</span>";
+        }
+
+        function renderBooks() {
+          const grid = $("#bookGrid");
+          grid.replaceChildren();
+          books.forEach((book) => {
+            const read = currentProfile().readBooks?.includes(book.title);
+            const card = document.createElement("button");
+            card.className = "shelf-card";
+            card.type = "button";
+            card.setAttribute("aria-label", `${book.title} by ${book.author}`);
+            const cover = document.createElement("div");
+            cover.className = "shelf-cover";
+            cover.style.background = `linear-gradient(145deg, ${book.colors[0]}, ${book.colors[1]})`;
+            const mark = document.createElement("span");
+            mark.className = "cover-mark";
+            mark.textContent = book.mark;
+            const title = document.createElement("strong");
+            title.textContent = book.title;
+            cover.append(mark, title);
+            const cardTitle = document.createElement("h3");
+            cardTitle.textContent = book.title;
+            const author = document.createElement("p");
+            author.textContent = book.author;
+            const tag = document.createElement("span");
+            tag.className = "shelf-tag";
+            tag.textContent = read ? "READ" : book.animation ? "CHAPTER 3 ANIMATION" : "BOOK · NO ANIMATION";
+            card.append(cover, cardTitle, author, tag);
+            card.addEventListener("click", () => showBookDetails(book));
+            grid.append(card);
+          });
+        }
+
+        function rewardCollectionKey(type) {
+          return `unlocked${type === "background" ? "Backgrounds" : `${type[0].toUpperCase()}${type.slice(1)}s`}`;
+        }
+
+        function selectedRewardKey(type) {
+          return type === "avatar" ? "avatar" : type;
+        }
+
+        function renderRewardGroup(type) {
+          const container = $(`#${type}Rewards`);
+          const profile = currentProfile();
+          const unlocked = profile[rewardCollectionKey(type)] || [];
+          const selected = profile[selectedRewardKey(type)];
+          const balance = Math.max(0, Math.floor(profile.xp || 0));
+          container.replaceChildren();
+
+          rewards[type].forEach((item) => {
+            const isUnlocked = unlocked.includes(item.id);
+            const isEquipped = isUnlocked && selected === item.id && !(type === "avatar" && profile.avatarImage);
+            const card = document.createElement("article");
+            card.className = "reward-card";
+            const swatch = document.createElement("span");
+            swatch.className = "reward-swatch";
+            if (type === "avatar") {
+              swatch.textContent = item.icon;
+            } else {
+              const previews = type === "theme"
+                ? { dark: ["#111312", "#c6f36b"], light: ["#f4f5f0", "#4a7418"], paper: ["#f1e9d8", "#6b8034"], forest: ["#141a15", "#c1d58a"], ocean: ["#10191d", "#78dfd2"], sunset: ["#211713", "#ffb078"] }
+                : { default: ["#191c1a", "#c6f36b"], aurora: ["#172329", "#81e9d4"], forest: ["#15201a", "#7cae68"], ocean: ["#111d28", "#55ccdc"], dusk: ["#241b2a", "#f7978b"], library: ["#282117", "#d6ae77"] };
+              swatch.style.background = `linear-gradient(135deg, ${previews[item.id][0]}, ${previews[item.id][1]})`;
+              swatch.textContent = item.icon;
+            }
+            const info = document.createElement("span");
+            info.className = "reward-info";
+            const name = document.createElement("strong");
+            name.textContent = item.name;
+            const method = document.createElement("span");
+            method.textContent = item.unlockAtMinutes ? `${item.unlockAtMinutes} min reading` : item.cost ? `${item.cost} XP` : "Free";
+            info.append(name, method);
+            const button = document.createElement("button");
+            button.className = `reward-action${isEquipped ? " equipped" : ""}`;
+            button.type = "button";
+            button.textContent = isEquipped
+              ? "Using"
+              : isUnlocked
+                ? "Use"
+                : item.unlockAtMinutes
+                  ? `Read ${item.unlockAtMinutes}m`
+                  : `Unlock · ${item.cost} XP`;
+            button.disabled = isEquipped || (!isUnlocked && (item.unlockAtMinutes || balance < item.cost));
+            button.addEventListener("click", () => handleRewardAction(type, item));
+            card.append(swatch, info, button);
+            container.append(card);
+          });
+        }
+
+        function renderRewards() {
+          if (!state.user) return;
+          renderRewardGroup("theme");
+          renderRewardGroup("background");
+          renderRewardGroup("avatar");
+          const profile = currentProfile();
+          const minutes = Math.floor((profile.readingSeconds || 0) / 60);
+          const nextReward = Object.values(rewards)
+            .flat()
+            .filter((item) => item.unlockAtMinutes && minutes < item.unlockAtMinutes)
+            .sort((first, second) => first.unlockAtMinutes - second.unlockAtMinutes)[0];
+          $("#nextMilestone").textContent = nextReward
+            ? `${nextReward.unlockAtMinutes - minutes} more minute${nextReward.unlockAtMinutes - minutes === 1 ? "" : "s"} of reading to unlock ${nextReward.name}.`
+            : "You've found every reading-time reward. Keep earning XP to shop for more.";
+        }
+
+        function handleRewardAction(type, item) {
+          const profile = currentProfile();
+          const unlockKey = rewardCollectionKey(type);
+          const selectedKey = selectedRewardKey(type);
+          const unlocked = profile[unlockKey] || [];
+          let purchased = false;
+          if (!unlocked.includes(item.id)) {
+            if (item.unlockAtMinutes) {
+              showToast(`Read for ${item.unlockAtMinutes} minutes to unlock ${item.name}.`);
+              return;
+            }
+            if ((profile.xp || 0) < item.cost) {
+              showToast(`You need ${item.cost - (profile.xp || 0)} more XP for ${item.name}.`);
+              return;
+            }
+            purchased = true;
+          }
+          const patch = { [selectedKey]: item.id };
+          if (purchased) {
+            patch.xp = profile.xp - item.cost;
+            patch[unlockKey] = [...unlocked, item.id];
+          }
+          if (type === "avatar") patch.avatarImage = null;
+          saveProfile(patch);
+          showToast(purchased ? `${item.name} unlocked and equipped for ${item.cost} XP.` : `${item.name} is ready for your next reading session.`);
+        }
+
+        function renderApp() {
+          renderProfile();
+          renderProgress();
+          renderBooks();
+          renderRewards();
+        }
+
+        function showBookDetails(book) {
+          if (book.animation) {
+            openReader();
+            return;
+          }
+          showToast(`${book.title} — ${book.note} This title doesn't have an animation.`);
+        }
+
+        function formatTime(totalSeconds) {
+          const seconds = Math.max(0, Math.floor(totalSeconds));
+          const minutes = Math.floor(seconds / 60);
+          const remainder = seconds % 60;
+          return `${String(minutes).padStart(2, "0")}:${String(remainder).padStart(2, "0")}`;
+        }
+
+        function applyReadingRewards(profile) {
+          const minutes = Math.floor((profile.readingSeconds || 0) / 60);
+          const reachedIntervals = Math.floor(minutes / 10);
+          const previousIntervals = profile.xpCreditedIntervals || 0;
+          const intervalsEarned = Math.max(0, reachedIntervals - previousIntervals);
+          profile.xpCreditedIntervals = Math.max(previousIntervals, reachedIntervals);
+          profile.xp = (profile.xp || 0) + intervalsEarned * 10;
+
+          const unlockedNames = [];
+          for (const [type, items] of Object.entries(rewards)) {
+            const unlockKey = rewardCollectionKey(type);
+            profile[unlockKey] ||= [];
+            for (const item of items) {
+              if (item.unlockAtMinutes && minutes >= item.unlockAtMinutes && !profile[unlockKey].includes(item.id)) {
+                profile[unlockKey].push(item.id);
+                unlockedNames.push(item.name);
+              }
+            }
+          }
+          return { xpEarned: intervalsEarned * 10, unlockedNames };
+        }
+
+        function progressForUser() {
+          state.data.progress ||= {};
+          state.data.progress[state.user] ||= { elapsedSeconds: 0, totalSeconds: 0, completed: false };
+          return state.data.progress[state.user];
+        }
+
+        function openReader() {
+          const progress = progressForUser();
+          state.elapsedBefore = progress.elapsedSeconds || 0;
+          state.readingSecondsBefore = currentProfile().readingSeconds || 0;
+          $("#timerValue").textContent = formatTime(state.elapsedBefore);
+          $("#timerStartButton").classList.toggle("hidden", Boolean(progress.completed || state.elapsedBefore));
+          $("#pauseReadingButton").classList.add("hidden");
+          $("#endTimerButton").classList.toggle("hidden", Boolean(progress.completed || !state.elapsedBefore));
+          $("#continueReadingButton").classList.toggle("hidden", Boolean(progress.completed || !state.elapsedBefore));
+          $("#finishChapterButton").classList.toggle("hidden", Boolean(progress.completed || !state.elapsedBefore));
+          $("#timerPanel").classList.remove("is-running");
+          $("#timerCaption").textContent = state.elapsedBefore ? "Paused · time so far" : "Time in this reading session";
+          $("#animationPanel").classList.toggle("hidden", !progress.completed);
+          $("#finishedHeading").textContent = "Your Chapter 3 animation";
+          $("#finishedCopy").textContent = progress.completed
+            ? "Your chapter is complete. Your animation is ready whenever you are."
+            : "";
+          state.playAnimationWhenReady = Boolean(progress.completed);
+          $("#timerDot").style.background = "var(--accent)";
+          $("#timerDot").setAttribute("aria-label", "Timer is stopped");
+          $("#readerBackdrop").classList.remove("hidden");
+          document.body.style.overflow = "hidden";
+          if (progress.completed && state.animationUrl) playAnimation();
+        }
+
+        function closeModals() {
+          if (state.startedAt !== null) pauseTimer(false);
+          if (state.animationUrl) {
+            $("#animationVideo").pause();
+            $("#animationVideo").currentTime = 0;
+          }
+          $("#readerBackdrop").classList.add("hidden");
+          $("#settingsBackdrop").classList.add("hidden");
+          document.body.style.overflow = "";
+        }
+
+        function startTimer() {
+          if (state.startedAt !== null || progressForUser().completed) return;
+          state.startedAt = Date.now();
+          state.readingSecondsBefore = currentProfile().readingSeconds || 0;
+          $("#timerStartButton").classList.add("hidden");
+          $("#pauseReadingButton").classList.remove("hidden");
+          $("#endTimerButton").classList.add("hidden");
+          $("#continueReadingButton").classList.add("hidden");
+          $("#finishChapterButton").classList.add("hidden");
+          $("#timerPanel").classList.add("is-running");
+          $("#timerCaption").textContent = "Reading in progress";
+          $("#timerDot").style.background = "#78d893";
+          $("#timerDot").setAttribute("aria-label", "Reading timer is running");
+          state.timerInterval = setInterval(updateTimer, 1000);
+          updateTimer();
+        }
+
+        function updateTimer() {
+          if (state.startedAt === null) return;
+          const currentElapsed = (Date.now() - state.startedAt) / 1000;
+          $("#timerValue").textContent = formatTime(state.elapsedBefore + currentElapsed);
+          const progress = progressForUser();
+          progress.elapsedSeconds = state.elapsedBefore + currentElapsed;
+          state.data.progress[state.user] = progress;
+          const profile = currentProfile();
+          profile.readingSeconds = state.readingSecondsBefore + currentElapsed;
+          const rewardUpdate = applyReadingRewards(profile);
+          writeData();
+          renderProgress();
+          if (rewardUpdate.xpEarned || rewardUpdate.unlockedNames.length) {
+            renderProfile();
+            renderRewards();
+            const messages = [];
+            if (rewardUpdate.xpEarned) messages.push(`+${rewardUpdate.xpEarned} XP for 10 minutes of reading`);
+            if (rewardUpdate.unlockedNames.length) messages.push(`Unlocked: ${rewardUpdate.unlockedNames.join(", ")}`);
+            showToast(messages.join(" · "));
+          }
+        }
+
+        function commitTimerSession() {
+          if (state.startedAt === null) return;
+          const sessionSeconds = Math.max(0, Math.floor((Date.now() - state.startedAt) / 1000));
+          const totalElapsed = state.elapsedBefore + sessionSeconds;
+          clearInterval(state.timerInterval);
+          state.timerInterval = null;
+          state.startedAt = null;
+          const progress = progressForUser();
+          progress.elapsedSeconds = totalElapsed;
+          progress.totalSeconds = (progress.totalSeconds || 0) + sessionSeconds;
+          progress.lastSessionSeconds = totalElapsed;
+          state.data.progress[state.user] = progress;
+          const profile = currentProfile();
+          profile.readingSeconds = state.readingSecondsBefore + sessionSeconds;
+          const rewardUpdate = applyReadingRewards(profile);
+          writeData();
+          $("#timerValue").textContent = formatTime(totalElapsed);
+          state.elapsedBefore = totalElapsed;
+          state.readingSecondsBefore = profile.readingSeconds;
+          $("#timerPanel").classList.remove("is-running");
+          $("#timerCaption").textContent = "Paused · time so far";
+          $("#timerDot").style.background = "var(--accent)";
+          $("#timerDot").setAttribute("aria-label", "Reading timer is paused");
+          $("#pauseReadingButton").classList.add("hidden");
+          $("#timerStartButton").classList.add("hidden");
+          $("#endTimerButton").classList.remove("hidden");
+          $("#continueReadingButton").classList.remove("hidden");
+          $("#finishChapterButton").classList.remove("hidden");
+          renderProgress();
+          renderProfile();
+          renderRewards();
+          return rewardUpdate;
+        }
+
+        function pauseTimer(notify = true) {
+          if (state.startedAt === null) return { xpEarned: 0, unlockedNames: [] };
+          const rewardUpdate = commitTimerSession();
+          const messages = [];
+          if (rewardUpdate.xpEarned) messages.push(`+${rewardUpdate.xpEarned} XP earned`);
+          if (rewardUpdate.unlockedNames.length) messages.push(`Unlocked: ${rewardUpdate.unlockedNames.join(", ")}`);
+          if (notify) messages.push("Reading paused. Your time is saved.");
+          if (messages.length) showToast(messages.join(" · "));
+          return rewardUpdate;
+        }
+
+        function endTimer() {
+          const rewardUpdate = pauseTimer(false);
+          $("#readerBackdrop").classList.add("hidden");
+          document.body.style.overflow = "";
+          const messages = [];
+          if (rewardUpdate.xpEarned) messages.push(`+${rewardUpdate.xpEarned} XP earned`);
+          if (rewardUpdate.unlockedNames.length) messages.push(`Unlocked: ${rewardUpdate.unlockedNames.join(", ")}`);
+          messages.push("Timer ended. Your place is saved for next time.");
+          showToast(messages.join(" · "));
+        }
+
+        async function playAnimation() {
+          const video = $("#animationVideo");
+          if (!state.animationUrl) {
+            state.playAnimationWhenReady = true;
+            $("#animationEmpty").classList.remove("hidden");
+            video.classList.add("hidden");
+            showToast("Choose your chapter animation video and it will start playing.");
+            return;
+          }
+          video.classList.remove("hidden");
+          try {
+            await video.play();
+            state.playAnimationWhenReady = false;
+          } catch (error) {
+            console.error("Could not start the chapter animation.", error);
+            showToast("The video is ready. Press play to start the animation.");
+          }
+        }
+
+        async function finishChapter() {
+          if (state.startedAt !== null) commitTimerSession();
+          const progress = progressForUser();
+          progress.completed = true;
+          progress.elapsedSeconds = 0;
+          state.data.progress[state.user] = progress;
+          writeData();
+          renderProgress();
+          renderBooks();
+          $("#timerStartButton").classList.add("hidden");
+          $("#pauseReadingButton").classList.add("hidden");
+          $("#endTimerButton").classList.add("hidden");
+          $("#continueReadingButton").classList.add("hidden");
+          $("#finishChapterButton").classList.add("hidden");
+          $("#animationPanel").classList.remove("hidden");
+          $("#finishedHeading").textContent = "Chapter 3 complete";
+          $("#finishedCopy").textContent = "Take a moment to see the story you just read.";
+          $("#timerCaption").textContent = "Chapter complete";
+          state.playAnimationWhenReady = true;
+          $("#animationPanel").scrollIntoView({ behavior: "smooth", block: "nearest" });
+          await playAnimation();
+        }
+
+        function openSettings() {
+          renderRewards();
+          $("#settingsBackdrop").classList.remove("hidden");
+          document.body.style.overflow = "hidden";
+        }
+
+        function readImageFile(file, callback) {
+          if (!file) return;
+          if (!file.type.startsWith("image/")) {
+            showToast("Please choose an image file.");
+            return;
+          }
+          if (file.size > 2 * 1024 * 1024) {
+            showToast("Choose an image smaller than 2 MB.");
+            return;
+          }
+          const reader = new FileReader();
+          reader.addEventListener("load", () => {
+            if (typeof reader.result === "string") callback(reader.result);
+            else showToast("Couldn't read that image. Please try another.");
+          });
+          reader.addEventListener("error", () => showToast("Couldn't read that image. Please try another."));
+          reader.readAsDataURL(file);
+        }
+
+        $("#authToggle").addEventListener("click", () => setAuthMode(state.authMode === "login" ? "signup" : "login"));
+        authForm.addEventListener("submit", handleAuth);
+        $("#signOutButton").addEventListener("click", signOut);
+        $("#continueButton").addEventListener("click", openReader);
+        $("#timerStartButton").addEventListener("click", startTimer);
+        $("#pauseReadingButton").addEventListener("click", () => pauseTimer());
+        $("#endTimerButton").addEventListener("click", endTimer);
+        $("#continueReadingButton").addEventListener("click", startTimer);
+        $("#finishChapterButton").addEventListener("click", finishChapter);
+        $("#settingsButton").addEventListener("click", openSettings);
+        $("#xpPill").addEventListener("click", openSettings);
+        $("#statsRewardsButton").addEventListener("click", openSettings);
+        $("#customizeButton").addEventListener("click", openSettings);
+        document.querySelectorAll(".close-modal").forEach((button) => button.addEventListener("click", closeModals));
+        document.querySelectorAll(".modal-backdrop").forEach((backdrop) => {
+          backdrop.addEventListener("click", (event) => {
+            if (event.target === backdrop) closeModals();
+          });
+        });
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") closeModals();
+        });
+        document.querySelectorAll("[data-scroll]").forEach((button) => {
+          button.addEventListener("click", () => {
+            document.getElementById(button.dataset.scroll).scrollIntoView({ behavior: "smooth" });
+            document.querySelectorAll(".nav-link").forEach((link) => link.classList.toggle("active", link === button));
+          });
+        });
+        $("#avatarUpload").addEventListener("change", (event) => {
+          readImageFile(event.target.files[0], (image) => {
+            saveProfile({ avatarImage: image });
+            showToast("Your profile picture is updated.");
+          });
+          event.target.value = "";
+        });
+        $("#animationUpload").addEventListener("change", (event) => {
+          const file = event.target.files[0];
+          if (!file) return;
+          if (!file.type.startsWith("video/")) {
+            showToast("Please choose a video file.");
+            return;
+          }
+          if (state.animationUrl) URL.revokeObjectURL(state.animationUrl);
+          state.animationUrl = URL.createObjectURL(file);
+          $("#animationVideo").src = state.animationUrl;
+          $("#animationSelectionStatus").textContent = file.name;
+          if (state.playAnimationWhenReady) {
+            $("#animationEmpty").classList.add("hidden");
+            playAnimation();
+          } else {
+            showToast("Animation ready. It will play when you finish the chapter.");
+          }
+          event.target.value = "";
+        });
+        window.addEventListener("beforeunload", () => {
+          if (state.startedAt !== null) {
+            const activeSeconds = (Date.now() - state.startedAt) / 1000;
+            const progress = progressForUser();
+            progress.elapsedSeconds = state.elapsedBefore + activeSeconds;
+            state.data.progress[state.user] = progress;
+            const profile = currentProfile();
+            profile.readingSeconds = state.readingSecondsBefore + activeSeconds;
+            applyReadingRewards(profile);
+            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data)); } catch (error) { console.error("Could not save reading progress.", error); }
+          }
+          if (state.animationUrl) URL.revokeObjectURL(state.animationUrl);
+        });
+
+        state.data = readData();
+        const activeUser = sessionStorage.getItem("s2s-active-user");
+        if (activeUser) {
+          state.user = activeUser;
+          ensureProfile(activeUser, state.data.users?.[activeUser]?.name || "Reader");
+          authScreen.classList.add("hidden");
+          appShell.classList.remove("hidden");
+          writeData();
+          renderApp();
+        }
+      })();
+    </script>
+  </body>
 </html>
